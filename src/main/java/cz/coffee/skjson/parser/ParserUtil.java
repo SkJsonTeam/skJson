@@ -6,11 +6,14 @@ import ch.njol.skript.util.slot.Slot;
 import ch.njol.yggdrasil.YggdrasilSerializable;
 import com.google.gson.*;
 import com.google.gson.internal.LazilyParsedNumber;
-import com.shanebeestudios.skbee.api.nbt.NBTCompound;
-import com.shanebeestudios.skbee.api.nbt.NBTItem;
+import cz.coffee.skjson.SkJson;
 import cz.coffee.skjson.api.DynamicObjectSerializer;
 import cz.coffee.skjson.api.nbts.NBTConvert;
 import cz.coffee.skjson.skript.base.Converter;
+import cz.coffee.skjson.utils.Logger;
+import de.tr7zw.nbtapi.NBTCompound;
+import de.tr7zw.nbtapi.NBTContainer;
+import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -261,6 +264,8 @@ public abstract class ParserUtil {
         if (o instanceof JsonElement json) return json;
         if (isClassicType(o)) return defaultConverter(o);
 
+        Logger.info("Parsing o: %s, class: %s", o, clazz);
+
         final boolean isItem = o instanceof ItemStack || o instanceof Slot || o instanceof ItemType || o instanceof ItemData;
 
         if (isItem) {
@@ -296,6 +301,21 @@ public abstract class ParserUtil {
      * @return the json element
      */
     static <T> JsonElement assign(T object) {
+
+        Logger.info("Assign object: %s", object.getClass());
+
+        try {
+            NBTCompound ncp = new NBTContainer(object.toString());
+            Logger.info("Assign ncp: %s", ncp);
+            var cncp = NBTConvert.parse("", ncp);
+
+            Logger.info("type: %s", cncp.deepCopy());
+
+            Logger.info("Assign cncp: %s", cncp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (object == null) return JsonNull.INSTANCE;
         boolean isSerializable = (object instanceof YggdrasilSerializable || object instanceof ConfigurationSerializable);
         try {

@@ -1,8 +1,0 @@
-{
-    "toolchains": [],
-    "editor.formatOnSave": true,
-    "colors": {
-        "terminal.ansiColors.foreground.ansiGreen": "Green 80",
-        "terminal.ansiColors.foreground.ansiBrightGreen": "Lime",
-    }
-}

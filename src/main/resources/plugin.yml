@@ -1,5 +1,5 @@
 name: SkJson
-version: '${project.version}'
+version: '${version}'
 main: cz.coffee.skjson.SkJson
 api-version: '1.16'
 revision-version: '51FE0CE25'

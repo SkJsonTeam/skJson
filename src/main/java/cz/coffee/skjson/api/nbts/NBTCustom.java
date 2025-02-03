@@ -1,7 +1,7 @@
 package cz.coffee.skjson.api.nbts;
 
-import com.shanebeestudios.skbee.api.nbt.NBTCompound;
-import com.shanebeestudios.skbee.api.nbt.NBTType;
+import de.tr7zw.nbtapi.NBTCompound;
+import de.tr7zw.nbtapi.NBTType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;

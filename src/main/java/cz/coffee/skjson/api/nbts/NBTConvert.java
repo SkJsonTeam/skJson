@@ -1,10 +1,10 @@
 package cz.coffee.skjson.api.nbts;
 
 import com.google.gson.*;
-import com.shanebeestudios.skbee.api.nbt.*;
-import com.shanebeestudios.skbee.api.nbt.iface.ReadWriteNBT;
 import cz.coffee.skjson.parser.ParserUtil;
 import cz.coffee.skjson.utils.Logger;
+import de.tr7zw.nbtapi.*;
+import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayDeque;
@@ -16,6 +16,9 @@ public class NBTConvert {
     public static JsonElement parse(String key, NBTCompound cmp) {
         try {
             NBTType type = cmp.getType(key);
+
+            Logger.info(key + " -> " + type);
+            Logger.info("cmp: -> %s", cmp.toString());
 
             if (type.equals(NBTType.NBTTagList)) {
                 return parseList(key, cmp);
@@ -246,7 +249,7 @@ public class NBTConvert {
     }
 
     public static ItemStack parseFromJson(ItemStack item, JsonObject tags, boolean mainComponents) {
-        NBTCustomItemStack nbtItem = new NBTCustomItemStack(item, mainComponents);
+        NBTItem nbtItem = new NBTItem(item, mainComponents);
         NBTContainer nbtContainer = processJson(tags);
         nbtItem.mergeCompound(nbtContainer);
         return nbtItem.getItem();

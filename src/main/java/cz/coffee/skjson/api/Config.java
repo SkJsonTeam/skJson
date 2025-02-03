@@ -4,12 +4,12 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import ch.njol.skript.util.Version;
 import com.google.gson.JsonElement;
-import com.shanebeestudios.skbee.api.nbt.NBTContainer;
-import com.shanebeestudios.skbee.api.nbt.utils.MinecraftVersion;
 import cz.coffee.skjson.SkJson;
 import cz.coffee.skjson.api.Cache.JsonCache;
 import cz.coffee.skjson.api.Cache.JsonWatcher;
 import cz.coffee.skjson.api.Update.UpdateCheck;
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.utils.MinecraftVersion;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
@@ -278,14 +278,13 @@ public class Config {
 
         manager = Bukkit.getPluginManager();
 
-        try {
-            new NBTContainer("{a:0}");
-            logger.info("[NBTAPI] Was loaded &asuccessfully.");
-        } catch (Exception ignored) {
+
+        if (!NBT.preloadApi()) {
             ready = false;
             simpleError("&#adfa6eN&#53db88B&#00b797T&#009294A&#006c7eP&#2a4858I &r Wasn't load &successfully");
+        } else {
+            logger.info("[NBTAPI] Was loaded &asuccessfully.");
         }
-
 
         try {
             if (!versionError(Skript.getVersion(), new Version("2.7.3"), true, manager, plugin))

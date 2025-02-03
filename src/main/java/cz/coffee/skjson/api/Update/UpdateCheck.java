@@ -35,7 +35,7 @@ public class UpdateCheck {
     public UpdateCheck(JavaPlugin plugin, Config config) {
         this.plugin = plugin;
         this.config = config;
-        API = "https://api.github.com/repos/skJsonTeam/" + plugin.getDescription().getName() + "/releases/latest";
+        API = "https://api.github.com/repos/cooffeeRequired/" + plugin.getDescription().getName() + "/releases/latest";
     }
 
     /**
